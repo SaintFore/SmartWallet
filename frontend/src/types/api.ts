@@ -3,7 +3,7 @@ export interface ResponseModel {
   version: string;
 }
 
-export interface Transaction {
+export interface TransactionModel {
   id: number;
   amount: number;
   category: string;

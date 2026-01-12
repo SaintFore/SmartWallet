@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from .models import ResponseModel, Transactions
+from .models import ResponseModel, TransactionModel
 from .database import get_session, create_db_and_tables
-from sqlmodel import Session
+from sqlmodel import Session,select
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
@@ -29,8 +29,14 @@ def get_health() -> ResponseModel:
     return ResponseModel(status="OK", version="v1.0")
 
 @app.post("/api/transactions")
-def create_transaction(transaction: Transactions, session: Session = Depends(get_session)):
+def create_transaction(transaction: TransactionModel, session: Session = Depends(get_session)):
     session.add(transaction)
     session.commit()
     session.refresh(transaction)
     return transaction
+
+@app.get("/api/transactions")
+def get_transactions(session: Session = Depends(get_session)) -> list[TransactionModel]:
+    statement = select(TransactionModel)
+    transactions = list(session.exec(statement).all())
+    return transactions

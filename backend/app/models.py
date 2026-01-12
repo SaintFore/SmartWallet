@@ -6,7 +6,7 @@ class ResponseModel(BaseModel):
     status: str
     version: str
 
-class Transactions(SQLModel, table=True):
+class TransactionModel(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     amount: float
     category: str
