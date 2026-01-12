@@ -12,6 +12,23 @@ function App() {
         setVersion(data.version);
       });
   }, []);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/transactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: 100,
+        category: "Groceries",
+        date: "2024-06-01",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
 
   return (
     <>
