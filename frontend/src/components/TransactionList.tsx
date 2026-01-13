@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
-import type { TransactionModel } from "../types/api";
-function TransactionList() {
-  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
-  useEffect(() => {
-    fetch("http://localhost:8000/api/transactions")
-      .then((res) => res.json())
-      .then((data: TransactionModel[]) => {
-        setTransactions(data);
-      });
-  }, []);
+import type { TransactionModel } from "./../types/api";
+
+type Props = {
+  data: TransactionModel[];
+};
+
+function TransactionList({ data }: Props) {
   return (
     <div className="max-w-md mx-auto mt-10">
       <h2 className="text-xl font-bold mb-4">我的账单</h2>
       <div className="space-y-4">
-        {transactions.map((t) => (
+        {data.map((t) => (
           <div
             key={t.id}
             className="border p-4 rounded shadow flex justify-between items-center"
