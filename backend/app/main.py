@@ -4,6 +4,7 @@ from .models import ResponseModel, TransactionModel
 from .database import get_session, create_db_and_tables
 from sqlmodel import Session,select
 from contextlib import asynccontextmanager
+from fastapi import HTTPException
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -40,3 +41,12 @@ def get_transactions(session: Session = Depends(get_session)) -> list[Transactio
     statement = select(TransactionModel)
     transactions = list(session.exec(statement).all())
     return transactions
+
+@app.delete("/api/transactions/{transaction_id}")
+def delete_transaction(transaction_id: int, session: Session = Depends(get_session)):
+    transaction = session.get(TransactionModel, transaction_id)
+    if not transaction:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    session.delete(transaction)
+    session.commit()
+    return {"ok": True}

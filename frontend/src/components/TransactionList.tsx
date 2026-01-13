@@ -2,9 +2,10 @@ import type { TransactionModel } from "./../types/api";
 
 type Props = {
   data: TransactionModel[];
+  onDelete: (id: number) => void;
 };
 
-function TransactionList({ data }: Props) {
+function TransactionList({ data, onDelete }: Props) {
   return (
     <div className="max-w-md mx-auto mt-10">
       <h2 className="text-xl font-bold mb-4">我的账单</h2>
@@ -19,6 +20,12 @@ function TransactionList({ data }: Props) {
               <p className="text-sm text-gray-500">{t.date}</p>
             </div>
             <p className="text-lg font-mono">{t.amount}</p>
+            <button
+              onClick={() => onDelete(t.id)}
+              className="text-red-500 hover:text-red-700"
+            >
+              X
+            </button>
           </div>
         ))}
       </div>
