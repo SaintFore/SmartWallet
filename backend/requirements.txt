@@ -1,0 +1,6 @@
+fastapi[standard]
+sqlmodel
+langchain
+langgraph
+langchain-openai
+dotenv
