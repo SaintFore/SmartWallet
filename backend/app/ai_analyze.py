@@ -17,7 +17,7 @@ def api_key() -> str:
 
 
 llm = ChatOpenAI(
-    model="gpt-4o",
+    model="gpt-5-nano",
     api_key=api_key,
     # base_url=os.getenv("DEEPSEEK_BASE_URL"),
     temperature=0,

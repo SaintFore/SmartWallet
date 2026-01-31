@@ -7,7 +7,7 @@ interface Props {
 export default function TransactionForm({ onSuccess }: Props) {
   // 定义表单状态
   const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("Food");
+  const [category, setCategory] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [des, setDes] = useState("");
 
@@ -47,8 +47,9 @@ export default function TransactionForm({ onSuccess }: Props) {
         onSuccess();
         // 清空表单
         setAmount("");
-        setCategory("Food");
+        setCategory("");
         setDate(new Date().toISOString().split("T")[0]);
+        setDes("");
         return;
       }
 
