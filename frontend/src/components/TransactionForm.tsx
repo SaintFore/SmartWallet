@@ -31,6 +31,7 @@ export default function TransactionForm({ onSuccess }: Props) {
       amount: amountNumber,
       category,
       date,
+      des,
     };
 
     try {

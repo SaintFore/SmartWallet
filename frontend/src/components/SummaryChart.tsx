@@ -1,7 +1,16 @@
-import { Pie, PieChart, Tooltip } from "recharts";
+import { Pie, PieChart, Tooltip, Cell } from "recharts";
 import type { TooltipIndex } from "recharts";
 import type { TransactionModel } from "../types/api";
 import { useMemo } from "react";
+
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#AF19FF",
+  "#FF4D4F",
+];
 
 type Props = {
   data: TransactionModel[];
@@ -61,18 +70,11 @@ export default function SummaryChart({
         fill="#8884d8"
         label
         isAnimationActive={isAnimationActive}
-      />
-      {/* <Pie */}
-      {/*   data={data02} */}
-      {/*   dataKey="value" */}
-      {/*   cx="50%" */}
-      {/*   cy="50%" */}
-      {/*   innerRadius="60%" */}
-      {/*   outerRadius="80%" */}
-      {/*   fill="#82ca9d" */}
-      {/*   label */}
-      {/*   isAnimationActive={isAnimationActive} */}
-      {/* /> */}
+      >
+        {charData.map((_, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
       <Tooltip defaultIndex={defaultIndex} />
     </PieChart>
   );
